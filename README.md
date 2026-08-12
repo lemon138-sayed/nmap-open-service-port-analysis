@@ -4,8 +4,11 @@ Project Overview
 
 This project documents a hands-on cybersecurity lab focused on identifying open ports, enumerating services, detecting operating systems, and evaluating network attack surfaces using Kali Linux and Nmap.
 The assessment was performed in a controlled CompTIA Security+ training environment across external, guest, client, and server network segments.
+
 > \*\*Authorized Lab Only:\*\* All scanning and testing were performed in a controlled training environment.
+
 Objectives
+
 Identify open TCP ports
 Enumerate running services and versions
 Detect target operating systems
@@ -13,7 +16,9 @@ Compare external, guest, and internal attack surfaces
 Identify network-segmentation weaknesses
 Evaluate exposed management services
 Recommend security controls
+
 Tools Used
+
 Kali Linux
 Nmap
 Grep
@@ -21,7 +26,9 @@ TCP/IP
 OPNsense
 FreeBSD
 Windows Server
+
 Skills Demonstrated
+
 Network reconnaissance
 Port scanning
 Service enumeration
@@ -32,7 +39,9 @@ Network-segmentation assessment
 Firewall security
 Security hardening
 Vulnerability assessment
+
 1. External Network Scan
+
 Target: `203.0.113.1`
 ```bash
 nmap 203.0.113.1 -F -sS -sV -O -Pn -oN border-scan.nmap
@@ -49,18 +58,24 @@ To show open ports:
 ```bash
 grep open border-scan.nmap
 ```
+
 Finding
+
 The scan identified:
 ```text
 25/tcp open smtp Postfix smtpd
 ```
 The external target exposed SMTP on TCP port 25. Nmap also identified the target as FreeBSD 11.2.
+
 Security Observation
+
 Externally accessible services increase the attack surface and should only be exposed when they support a legitimate business requirement.
 ![External Nmap Scan](screenshots/02-external-nmap-scan.png)
 ![External Open Port](screenshots/03-external-open-port.png)
 ![External OS Detection](screenshots/04-external-os-detection.png)
+
 2. Guest Network Assessment
+
 The Kali workstation was moved to the guest network. DHCP was refreshed with:
 ```bash
 dhclient -r \&\& dhclient
@@ -71,7 +86,9 @@ ip a s eth0
 ```
 The workstation received an address in the `192.168.16.0/24` network.
 ![Guest Network IP](screenshots/05-guest-network-ip.png)
+
 Guest Gateway Findings
+
 The guest gateway was scanned at `192.168.16.254`. The results showed these accessible services:
 Port	Service	Detected Technology
 25	SMTP	Postfix smtpd
@@ -83,15 +100,21 @@ The service name found on several open ports was OPNsense.
 ![Guest Service Enumeration](screenshots/06-guest-service-enumeration.png)
 Nmap identified the gateway as FreeBSD 11.x, consistent with the OPNsense platform.
 ![Guest OS Detection](screenshots/07-guest-os-detection.png)
+
 Security Finding
+
 Firewall management services were reachable from the guest network. Guest devices should generally not be able to reach administrative interfaces.
+
 Recommended Remediation
+
 Restrict firewall administration to a dedicated management VLAN
 Block guest-network access to management interfaces
 Apply firewall ACLs between security zones
 Allow administrative access only from authorized systems
 Use encrypted administrative connections
+
 3. Internal Network Assessment
+
 The Kali workstation was moved to the client network and the internal server was scanned.
 Target: `10.1.16.2`
 ```bash
@@ -102,7 +125,9 @@ To show open services:
 grep open server-scan.nmap
 ```
 ![Client Network IP](screenshots/08-client-network-ip.png)
+
 Discovered Internal Services
+
 Port	Service
 25	SMTP
 80	HTTP
