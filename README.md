@@ -144,18 +144,31 @@ Port	Service
 ![Internal Server Scan](screenshots/09-internal-server-scan.png)
 ![Internal Server Services](screenshots/10-internal-server-services.png)
 Nmap identified the target operating system as Microsoft Windows Server 2016.
+
 Key Security Findings
+
 Excessive Open Ports
+
 The internal server exposed numerous services. Every unnecessary service creates another possible attack path.
+
 Weak Network Segmentation
+
 The client network was able to discover many services on the server network, indicating that stronger segmentation and firewall filtering may be appropriate.
+
 SMB Exposure
+
 TCP port 445 exposed Microsoft-DS/SMB, a service commonly targeted during lateral movement and ransomware activity.
+
 Database Exposure
+
 TCP port 3306 exposed MySQL. Database services should generally be reachable only from authorized application servers and administrative systems.
+
 OS and Service Enumeration
+
 Nmap successfully identified operating-system and service information that could help an attacker select platform-specific exploits.
+
 Attack Surface Summary
+
 The attack surface identified in the lab included:
 SMTP
 DNS
@@ -167,7 +180,9 @@ IMAP
 NFS
 MySQL
 Operating-system information
+
 Recommended Security Controls
+
 Close unnecessary ports
 Disable unused services
 Implement VLAN segmentation
@@ -181,7 +196,9 @@ Replace unsupported systems
 Perform regular vulnerability scanning
 Monitor suspicious activity with IDS/IPS and SIEM
 Apply least-privilege network access
+
 Commands Used
+
 ```bash
 # External scan
 nmap 203.0.113.1 -F -sS -sV -O -Pn -oN border-scan.nmap
@@ -205,12 +222,18 @@ nmap 10.1.16.2 -F -sS -sV -O -oN server-scan.nmap
 grep open server-scan.nmap
 grep OS server-scan.nmap
 ```
+
 What I Learned
+
 This lab strengthened my practical understanding of Nmap reconnaissance, TCP SYN scanning, service enumeration, OS fingerprinting, firewall exposure, network segmentation, threat vectors, attack-surface reduction, security risk assessment, and remediation planning.
 The lab demonstrated that open ports should be evaluated based on business need and that effective security requires both perimeter protection and proper internal segmentation.
+
 Lab Result
+
 CompTIA Security+ Assisted Lab: Finding Open Service Ports  
 Score: 12/12 - Successfully Completed
 ![Lab Completion](screenshots/11-lab-score.png)
+
 Disclaimer
+
 This project was completed for educational purposes in an authorized CompTIA cybersecurity training environment. No unauthorized systems were scanned or tested.
