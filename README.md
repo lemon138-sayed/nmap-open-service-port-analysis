@@ -1,5 +1,7 @@
 Nmap Open Service Port Analysis
+
 Project Overview
+
 This project documents a hands-on cybersecurity lab focused on identifying open ports, enumerating services, detecting operating systems, and evaluating network attack surfaces using Kali Linux and Nmap.
 The assessment was performed in a controlled CompTIA Security+ training environment across external, guest, client, and server network segments.
 > \*\*Authorized Lab Only:\*\* All scanning and testing were performed in a controlled training environment.
